@@ -1,0 +1,7 @@
+window:
+  opacity: 0.8
+
+colors:
+  primary:
+    #background: '#001caa'
+    foreground: '#c5c8c6'
