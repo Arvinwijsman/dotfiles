@@ -65,3 +65,5 @@ get_session(){
 
 #exec $(get_session "$1")
 exec i3
+# Start picom for transparancy
+picom -f &
