@@ -57,11 +57,12 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -location 0
 bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons -location 0
 bindsym $mod+Shift+Tab exec --no-startup-id rofi -show windowcd -show-icons -location 0
+bindsym Pause exec --no-startup-id rofi -show power-menu -modi power-menu:rofi-power-menu
 
 #### FOCUS SETTINGS 
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+i focus up
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # Cursor alt
@@ -71,9 +72,9 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # Move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+i move up
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # Cursor alt
@@ -83,7 +84,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 ### SPLITS
-bindsym $mod+h split h
+#bindsym $mod+h split h
 bindsym $mod+v split v
 
 ### FULLSCREEN
@@ -104,16 +105,16 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 ### Workspace vars
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
-set $ws10 10
+set $ws1 "1:Web"
+set $ws2 "2:Term"
+set $ws3 "3:Dev"
+set $ws4 "4:Chat"
+set $ws5 "5:Misc"
+set $ws6 "6:Crypto"
+set $ws7 "7:API"
+set $ws8 "8:DB"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1 
@@ -145,8 +146,9 @@ workspace 2 output DisplayPort-2
 workspace 3 output DisplayPort-2
 workspace 4 output DisplayPort-2
 
-# Panel settings
+### Panel settings
 title_align center
+default_border none
 gaps inner 40
 smart_borders on
 # smart_gaps on
@@ -196,7 +198,6 @@ bindsym $mod+r mode "resize"
 focus_follows_mouse no
 
 # Auto app startups
-exec --no-startup-id brave
 exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
