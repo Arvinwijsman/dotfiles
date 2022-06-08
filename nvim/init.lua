@@ -23,6 +23,6 @@ require('custom')	 -- Plugin Settings
 
 -- cmds
 vim.cmd [[
-  syntax enable
+  syntax off
   colorscheme dracula
 ]]
