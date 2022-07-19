@@ -69,11 +69,15 @@ font-5 = ${fonts.nerd}
 font-6 = ${fonts.opensansboldhigh}
 
 wm-restack = i3
-tray-position = left
 
+# Tray settings
+tray-position = left
+tray-padding = 5
+
+# Modules
 modules-left = workspaces 
 modules-center = date
-modules-right = crypto memory cpu sound 
+modules-right = crypto memory cpu pulseaudio 
 
 ;Date correction
 [module/date]
@@ -104,21 +108,15 @@ pin-workspaces = false
 strip-wsnumbers = true
 index-sort = true
 
-#ws-icon-0 = 1;♚
-#ws-icon-1 = 2;♛
-#ws-icon-2 = 3;♜
-#ws-icon-3 = 4;♝
-#ws-icon-4 = 5;♞
-
 ws-icon-default = ♟
-ws-icon-0 = "1:Web";喇
-ws-icon-1 = "2:Term"❷
-ws-icon-2 = "3:Dev";❸
-ws-icon-3 = "4:Chat";❹
-ws-icon-4 = "5:Misc";❺
-ws-icon-5 = "6:Crypto";❻
-ws-icon-6 = "7:API";
-ws-icon-7 = "8:DB";❽
+ws-icon-0 = "1";喇
+ws-icon-1 = "2"❷
+ws-icon-2 = "3";❸
+ws-icon-3 = "4";❹
+ws-icon-4 = "5";❺
+ws-icon-5 = "6";❻
+ws-icon-6 = "7";
+ws-icon-7 = "8";❽
 
 format = <label-state> <label-mode>
 
@@ -129,31 +127,31 @@ label-mode = %mode%
 label-mode-background = ${colors.dark-purple}
 #label-mode-underline = ${colors.fav-purple}
 label-mode-padding = 5
-label-mode-font = 10
+label-mode-font = 2
 
 label-focused = %name%
-label-focused-foreground = ${colors.dark}
-label-focused-background = ${colors.menucol-orange}
-#label-focused-underline = ${colors.light-green}
-label-focused-padding = 8
-label-focused-font = 12
+label-focused-foreground = ${colors.light}
+#label-focused-background = ${colors.menucol-orange}
+label-focused-underline = ${colors.menucol-orange}
+label-focused-padding = 6
+label-focused-font = 2
 
 label-unfocused = %name%
-label-unfocused-foreground = ${colors.gray}
-label-unfocused-padding = 8
-label-unfocused-font = 12
+label-unfocused-foreground = ${colors.light}
+label-unfocused-padding = 6
+label-unfocused-font = 2
 
 label-visible = %name%
 label-visible-background = ${colors.dark-purple}
 #label-visible-underline = ${colors.light-purple}
-label-visible-padding = 8
-label-visible-font = 12
+label-visible-padding = 6
+label-visible-font = 2
 
 label-urgent = %name%
 label-urgent-background = ${colors.dark-red}
 #label-urgent-underline = ${colors.light-red}
-label-urgent-padding = 8
-label-urgent-font = 12
+label-urgent-padding = 6
+label-urgent-font = 2
 
 
 ;Media Player
@@ -243,6 +241,20 @@ ramp-volume-2 = 
 ramp-volume-font = 7
 ramp-volume-foreground = ${colors.menucol-sealine}
 
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume-prefix = "VOL"
+format-volume-prefix-foreground = ${colors.menucol-orange}
+format-volume-prefix-padding = 4
+format-volume-prefix-font = 2
+format-volume = <label-volume>
+
+label-volume = %percentage%%
+label-volume-padding-right = 4
+label-muted = muted
+label-muted-padding = 4
+label-muted-foreground = ${colors.disabled}
 
 ;Brightness
 [module/brightness]
@@ -255,7 +267,6 @@ format-prefix-foreground = ${colors.menucol-yellow}
 
 label = " %percentage%"
 label-font = 3
-
 
 ;Keyboard Layout
 [module/layout]
@@ -360,25 +371,27 @@ animation-discharging-foreground = ${colors.menucol-orange}
 type = internal/cpu
 interval = 0.5
 format = <label>
+format-font = 2
 format-padding = 4
 #format-underline = ${colors.menucol-red}
 
-format-prefix = 
-format-prefix-foreground = ${colors.menucol-red}
+format-prefix = CPU
+format-prefix-foreground = ${colors.menucol-orange}
 
-label = " %percentage%"
-label-font = 2
+label = "%percentage% %"
+label-font = 4
 label-padding-left = 5
 
 [module/memory]
 type = internal/memory
 interval = 3
 format = <label>
+format-font = 2
 format-padding = 5
-#format-underline = ${colors.menucol-purple}
+#format-underline = ${colors.menucol-orange}
 
-format-prefix = 
-format-prefix-foreground = ${colors.menucol-purple}
+format-prefix = RAM
+format-prefix-foreground = ${colors.menucol-orange}
 
 label = " %gb_used%"
 label-font = 4
@@ -434,3 +447,7 @@ interval = 600
 label-font = 4
 label-padding = 4
 #format-underline = ${colors.menucol-orange}
+format = BTC <label>
+format-font = 2
+format-foreground = ${colors.menucol-orange}
+label-foreground = ${colors.light}

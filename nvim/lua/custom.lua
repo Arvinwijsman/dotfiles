@@ -1,5 +1,35 @@
 --[[ custom.lua ]]
 
+-- Theme
+
+-- onedark = require('onedark')
+-- onedark.setup  {
+--     -- Main options --
+--     style = 'darker', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+--     transparent = false,  -- Show/hide background
+--     term_colors = true, -- Change terminal color as per the selected theme style
+--     ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+--     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+--     toggle_style_key = '<leader>ts', -- Default keybinding to toggle
+--     toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
+--     code_style = {
+--         comments = 'italic',
+--         keywords = 'none',
+--         functions = 'none',
+--         strings = 'none',
+--         variables = 'none'
+--     },
+--     colors = {}, -- Override default colors
+--     highlights = {}, -- Override highlight groups
+--     -- Plugins Config --
+--     diagnostics = {
+--         darker = true, -- darker colors for diagnostic
+--         undercurl = true,   -- use undercurl instead of underline for diagnostics
+--         background = true,    -- use background color for virtual text
+--     },
+-- }
+-- onedark.load()
+
 -- Tree shitter
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = { "python", "lua", "json", "dockerfile" },
@@ -40,7 +70,7 @@ end
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = 'dracula-nvim',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -50,8 +80,13 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_c = {
+		{
+			'filename',
+			path = 1
+		}
+	},
+    lualine_x = {'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
@@ -67,11 +102,45 @@ require('lualine').setup {
   extensions = {}
 }
 
+-- Project manager
+require("project_nvim").setup {
+  -- Manual mode doesn't automatically change your root directory, so you have
+  -- the option to manually do so using `:ProjectRoot` command.
+  manual_mode = false,
+
+  -- Methods of detecting the root directory. **"lsp"** uses the native neovim
+  -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
+  -- order matters: if one is not detected, the other is used as fallback. You
+  -- can also delete or rearangne the detection methods.
+  detection_methods = { "lsp", "pattern" },
+
+  -- All the patterns used to detect root dir, when **"pattern"** is in
+  -- detection_methods
+  patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "docker-compose.yml" },
+
+  -- Table of lsp clients to ignore by name
+  -- eg: { "efm", ... }
+  ignore_lsp = {},
+
+  -- Don't calculate root dir on specific directories
+  -- Ex: { "~/.cargo/*", ... }
+  exclude_dirs = {},
+
+  -- Show hidden files in telescope
+  show_hidden = true,
+
+  -- When set to false, you will get a message when project.nvim changes your
+  -- directory.
+  silent_chdir = true,
+
+  -- Path where project.nvim will store the project history for use in
+  -- telescope
+  datapath = vim.fn.stdpath("data"),
+}
+
 -- Telescope
 require('telescope').setup{
   defaults = {
-    -- Default configuration for telescope goes here:
-    -- config_key = value,
     mappings = {
       i = {
         -- map actions.which_key to <C-h> (default: <C-/>)
@@ -79,7 +148,8 @@ require('telescope').setup{
         -- e.g. git_{create, delete, ...}_branch for the git_branches picker
         -- ["<C-h>"] = "which_key"
       }
-    }
+    },
+	file_ignore_patterns = { "node_modules", ".git" }
   },
   pickers = {
     -- Default configuration for builtin pickers goes here:
@@ -107,28 +177,47 @@ require('telescope').setup{
   },
 }
 
-require("telescope").load_extension "file_browser"
+require("telescope").load_extension 'file_browser'
 require('telescope').load_extension 'fzf'
+require('telescope').load_extension('projects')
 
 -- Nvim-tree
-require("nvim-tree").setup{
-}
+require("nvim-tree").setup({
+  respect_buf_cwd = true,
+  update_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_cwd = true
+  },
+})
 
+-- Add telescope shortcuts
 
---Add leader shortcuts
+-- -- Show and switch buffers
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
-vim.keymap.set('n', '<leader>sf', function()
+
+-- -- File opening
+vim.keymap.set('n', '<leader>sp', require('telescope').extensions.projects.projects)
+vim.keymap.set('n', '<leader>s<TAB>', require('telescope.builtin').oldfiles)
+vim.keymap.set('n', '<leader>so', function()
   require('telescope.builtin').find_files { previewer = false }
 end)
-vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fuzzy_find)
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags)
-vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags)
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').grep_string)
-vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep)
-vim.keymap.set('n', '<leader>so', function()
-  require('telescope.builtin').tags { only_current_buffer = true }
-end)
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
+
+-- -- Fuzzy finding
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').current_buffer_fuzzy_find)
+vim.keymap.set('n', '<leader>sF', require('telescope.builtin').live_grep)
+
+
+-- -- Git pickers
+vim.keymap.set('n', '<leader>sb', require('telescope.builtin').git_branches)
+vim.keymap.set('n', '<leader>sL', require('telescope.builtin').git_commits)
+vim.keymap.set('n', '<leader>sl', require('telescope.builtin').git_bcommits)
+vim.keymap.set('n', '<leader>st', require('telescope.builtin').git_status)
+
+-- -- LSP pickers
+vim.keymap.set('n', '<leader>sr', require('telescope.builtin').lsp_references)
+vim.keymap.set('n', '<leader>gd', require('telescope.builtin').lsp_definitions)
+vim.keymap.set('n', '<leader>gi', require('telescope.builtin').lsp_implementations)
 
 -- LSPs
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

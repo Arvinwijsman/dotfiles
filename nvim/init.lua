@@ -16,13 +16,10 @@ require('keys')      -- Keymaps
 require('plug')      -- Plugins
 require('custom')	 -- Plugin Settings
 
--- Theme
---require('onedarkpro').load()
 
 -- TODO: Telescope fzr + git fugitive
 
 -- cmds
 vim.cmd [[
-  syntax off
-  colorscheme dracula
+	colorscheme dracula
 ]]

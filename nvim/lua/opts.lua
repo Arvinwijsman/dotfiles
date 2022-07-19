@@ -13,7 +13,7 @@ opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
 
 -- [[ Theme ]]
-opt.syntax = "ON"                -- str:  Allow syntax highlighting
+opt.syntax = "OFF"                -- str:  Allow syntax highlighting
 opt.termguicolors = true         -- bool: If term supports ui color then enable
 
 -- [[ Search ]]
@@ -30,7 +30,13 @@ opt.tabstop = 4                  -- num:  Number of spaces tabs count for
 
 -- [[ Splits ]]
 opt.splitright = true            -- bool: Place new window to right of current one
-opt.splitbelow = true            -- bool: Place new window below the current one
+opt.splitbelow = false            -- bool: Place new window below the current one
+
+-- [[ Buffers]]
+opt.clipboard = 'unnamedplus'
+opt.autoindent = true
+opt.smartindent = true
 
 -- [[ Other ]]
 opt.undofile = true
+

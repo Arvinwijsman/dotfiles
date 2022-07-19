@@ -13,7 +13,7 @@ font pango:Open Sans Semibold 9
 
 # color defines for zenburn styled i3
 set $bg     #333333
-set $ac     #111111
+set $ac     #FFAF60
 set $tx     #EEEEEE
 set $ia     #777777
 set $rd     #331111
@@ -45,11 +45,11 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 ### start term
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 ### kill
 bindsym $mod+Shift+q kill
 
@@ -58,6 +58,10 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -location 0
 bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons -location 0
 bindsym $mod+Shift+Tab exec --no-startup-id rofi -show windowcd -show-icons -location 0
 bindsym Pause exec --no-startup-id rofi -show power-menu -modi power-menu:rofi-power-menu
+
+#### Brightness adjustment xrandr
+bindcode Mod1+112 exec /home/arvin/.config/i3/bright.sh + && $refresh_i3status
+bindcode $mod+117 exec /home/arvin/.config/i3/bright.sh - && $refresh_i3status
 
 #### FOCUS SETTINGS 
 bindsym $mod+h focus left
@@ -105,14 +109,14 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 ### Workspace vars
-set $ws1 "1:Web"
-set $ws2 "2:Term"
-set $ws3 "3:Dev"
-set $ws4 "4:Chat"
-set $ws5 "5:Misc"
-set $ws6 "6:Crypto"
-set $ws7 "7:API"
-set $ws8 "8:DB"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
@@ -148,8 +152,8 @@ workspace 4 output DisplayPort-2
 
 ### Panel settings
 title_align center
-default_border none
-gaps inner 40
+default_border pixel 1
+gaps inner 50
 smart_borders on
 # smart_gaps on
 
@@ -159,6 +163,15 @@ smart_borders on
 
 # Floaters
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
+for_window [class="gnome-calculator" instance="gnome-calculator"] floating enable
+for_window [window_role="About"] floating enable
+for_window [class="Org.gnome.Nautilus" instance="org.gnome.Nautilus"] floating enable
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -170,15 +183,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 30 px or 30 ppt
+        bindsym j resize grow height 30 px or 30 ppt
+        bindsym k resize shrink height 30 px or 30 ppt
+        bindsym l resize grow width 30 px or 30 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -197,11 +205,19 @@ bindsym $mod+r mode "resize"
 # Mouse settings
 focus_follows_mouse no
 
-# Auto app startups
-exec --no-startup-id dunst
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+### Auto app startups
+exec_always --no-startup-id dunst
 exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
-exec nitrogen --no-startup-id --restore &
+# Compositor / transparancy
+exec_always picom --vsync &
+# Vsync
+exec_always xrandr --output DisplayPort-2 --set TearFree on
+# Wallpaper
+exec_always feh --bg-scale /home/arvin/Pictures/wallpapers/moon
+# USB mounts
+exec_always --no-startup-id udiskie --tray &
+# Slow scroll fix
+exec_always imwheel
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

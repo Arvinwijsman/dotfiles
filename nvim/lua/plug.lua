@@ -17,7 +17,8 @@ return require('packer').startup(function()
   	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
 	
     -- Theming 
-    use {'dracula/vim', as = 'dracula'}
+    --use {'dracula/vim', as = 'dracula'}
+	use {'Mofiqul/dracula.nvim', as = 'dracula-nvim'}
     use {'navarasu/onedark.nvim', as = 'one-dark'}
     use {'olimorris/onedarkpro.nvim', as = 'one-dark-pro'}
   
@@ -35,13 +36,19 @@ return require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
   		requires = { {'nvim-lua/plenary.nvim'} }
     }
-
 	use {
 		'nvim-telescope/telescope-file-browser.nvim',
 		requires = { 'nvim-telescope/telescope.nvim' }
 	}
-	
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+	use {
+		'cljoly/telescope-repo.nvim',
+		requires = { 'nvim-telescope/telescope.nvim' }
+	}
+	use {
+		"ahmedkhalf/project.nvim",
+		requires = { 'nvim-telescope/telescope.nvim' }
+	}	
 
 	-- File Explorer tree
 	use {
@@ -51,6 +58,7 @@ return require('packer').startup(function()
     	},
     	tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	}
+
 
 	-- Misc
 end)
