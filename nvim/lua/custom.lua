@@ -1,34 +1,5 @@
 --[[ custom.lua ]]
-
--- Theme
-
--- onedark = require('onedark')
--- onedark.setup  {
---     -- Main options --
---     style = 'darker', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
---     transparent = false,  -- Show/hide background
---     term_colors = true, -- Change terminal color as per the selected theme style
---     ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
---     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
---     toggle_style_key = '<leader>ts', -- Default keybinding to toggle
---     toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
---     code_style = {
---         comments = 'italic',
---         keywords = 'none',
---         functions = 'none',
---         strings = 'none',
---         variables = 'none'
---     },
---     colors = {}, -- Override default colors
---     highlights = {}, -- Override highlight groups
---     -- Plugins Config --
---     diagnostics = {
---         darker = true, -- darker colors for diagnostic
---         undercurl = true,   -- use undercurl instead of underline for diagnostics
---         background = true,    -- use background color for virtual text
---     },
--- }
--- onedark.load()
+-- Plugin settings overwrites
 
 -- Tree shitter
 require'nvim-treesitter.configs'.setup {
@@ -70,7 +41,7 @@ end
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'dracula-nvim',
+    theme = 'auto',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -191,72 +162,11 @@ require("nvim-tree").setup({
   },
 })
 
--- Add telescope shortcuts
 
--- -- Show and switch buffers
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
-
--- -- File opening
-vim.keymap.set('n', '<leader>sp', require('telescope').extensions.projects.projects)
-vim.keymap.set('n', '<leader>s<TAB>', require('telescope.builtin').oldfiles)
-vim.keymap.set('n', '<leader>so', function()
-  require('telescope.builtin').find_files { previewer = false }
-end)
-
--- -- Fuzzy finding
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').current_buffer_fuzzy_find)
-vim.keymap.set('n', '<leader>sF', require('telescope.builtin').live_grep)
-
-
--- -- Git pickers
-vim.keymap.set('n', '<leader>sb', require('telescope.builtin').git_branches)
-vim.keymap.set('n', '<leader>sL', require('telescope.builtin').git_commits)
-vim.keymap.set('n', '<leader>sl', require('telescope.builtin').git_bcommits)
-vim.keymap.set('n', '<leader>st', require('telescope.builtin').git_status)
-
--- -- LSP pickers
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').lsp_references)
-vim.keymap.set('n', '<leader>gd', require('telescope.builtin').lsp_definitions)
-vim.keymap.set('n', '<leader>gi', require('telescope.builtin').lsp_implementations)
-
--- LSPs
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- Mappings.
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>F', vim.lsp.buf.formatting, bufopts)
-end
-
--- map buffer local keybindings when the language server attaches
-local servers = { 'pyright' }
+local servers = { 'pyright', 'intelephense' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
+    on_attach = require("keys").on_attach,
     flags = {
       debounce_text_changes = 150,
     }

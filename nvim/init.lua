@@ -17,9 +17,9 @@ require('plug')      -- Plugins
 require('custom')	 -- Plugin Settings
 
 
--- TODO: Telescope fzr + git fugitive
+-- TODO: 
+-- try git fugitive
+-- build telescope plugin for docker containers
 
 -- cmds
-vim.cmd [[
-	colorscheme dracula
-]]
+vim.cmd("colorscheme tokyodark")

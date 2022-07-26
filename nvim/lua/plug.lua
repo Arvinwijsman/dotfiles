@@ -5,6 +5,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function()
+	-- Base deps
     use 'wbthomason/packer.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'rstacruz/vim-closer'
@@ -20,7 +21,8 @@ return require('packer').startup(function()
     --use {'dracula/vim', as = 'dracula'}
 	use {'Mofiqul/dracula.nvim', as = 'dracula-nvim'}
     use {'navarasu/onedark.nvim', as = 'one-dark'}
-    use {'olimorris/onedarkpro.nvim', as = 'one-dark-pro'}
+	use {'tiagovla/tokyodark.nvim'}
+    -- use {'olimorris/onedarkpro.nvim', as = 'one-dark-pro'}
   
     -- Status line settings
     use {
