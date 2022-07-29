@@ -217,17 +217,17 @@ exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id dunst
 
 # Compositor / transparancy
-exec_always picom --vsync &
+exec_always --no-startup-id picom --vsync &
 
 # Vsync
-exec_always xrandr --output DisplayPort-2 --set TearFree on
+exec_always --no-startup-id xrandr --output DisplayPort-2 --set TearFree on
 
 # Wallpaper
-exec_always feh --bg-scale /home/arvin/Pictures/wallpapers/moon
+exec_always --no-startup-id feh --bg-scale /home/arvin/Pictures/wallpapers/moon
 
 # USB mounts
 #exec_always --no-startup-id udiskie --tray &
 
 # Slow scroll fix
-exec_always imwheel
+exec_always --no-startup-id imwheel
 

@@ -132,6 +132,12 @@ alias pzh="cd /home/arvin/Documents/pzh/Omgevingsbeleid-API"
 # Set nvim as default
 alias vim="nvim"
 
+# Kitty remote
+alias sshfix="kitty +kitten ssh"
+
+# Docker extras
+alias dpa="docker ps -a"
+
 # Run on start
 #sysctl -w vm.max_map_count=262144
 
