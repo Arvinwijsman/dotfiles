@@ -104,6 +104,9 @@ else
   export EDITOR='mvim'
 fi
 
+# Set VI mode for command editing
+bindkey -v
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -137,6 +140,7 @@ alias sshfix="kitty +kitten ssh"
 
 # Docker extras
 alias dpa="docker ps -a"
+alias dsa="docker stop $(docker ps --format '{{.ID}}')"
 
 # Run on start
 #sysctl -w vm.max_map_count=262144
@@ -151,6 +155,6 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-export VISUAL=vim;
-export EDITOR=vim;
+export VISUAL=nvim;
+export EDITOR=nvim;
 
