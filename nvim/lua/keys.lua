@@ -53,7 +53,10 @@ vim.keymap.set('n', '<leader><TAB>', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>sp', require('telescope').extensions.projects.projects)
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').oldfiles)
 vim.keymap.set('n', '<leader>so', function()
-  require('telescope.builtin').find_files { previewer = false }
+  require('telescope.builtin').find_files({ 
+	  previewer = false,
+	  hidden = true
+  })
 end)
 
 -- -- Fuzzy finding
@@ -110,5 +113,26 @@ function keys.on_attach(client, bufnr)
   vim.keymap.set('n', '<space>F', vim.lsp.buf.formatting, bufopts)
   vim.keymap.set('n', '<space>oi', ":PyrightOrganizeImports<CR>", bufopts)
 end
+
+
+-- Debugger --
+vim.keymap.set('n', '<space>dt', ":lua require'dap'.toggle_breakpoint()<CR>")
+
+vim.keymap.set('n', '<space>db', ":lua require'dap'.continue()<CR>") 
+vim.keymap.set('n', '<space>dq', ":lua require'dap'.terminate()<CR>") 
+vim.keymap.set('n', '<space>do', ":lua require'dap'.step_over()<CR>")
+vim.keymap.set('n', '<space>dj', ":lua require'dap'.step_into()<CR>")
+vim.keymap.set('n', '<space>dk', ":lua require'dap'.step_out()<CR>")
+
+-- extra F key maps
+vim.keymap.set('n', '<F8>', ":lua require'dap'.continue()<CR>")
+vim.keymap.set('n', '<F6>', ":lua require'dap'.terminate()<CR>") 
+vim.keymap.set('n', '<F9>', ":lua require'dap'.step_into()<CR>")
+vim.keymap.set('n', '<F7>', ":lua require'dap'.step_out()<CR>")
+
+-- misc
+vim.keymap.set('n', '<space>dR', ":lua require'dap'.repl.open()<CR>") -- REPL
+vim.keymap.set('n', '<space>du', ":lua require'dapui'.toggle()<CR>") -- toggle UI
+
 
 return keys

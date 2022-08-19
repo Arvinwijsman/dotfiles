@@ -11,15 +11,12 @@ vim.g.localleader = "\\"
 
 -- IMPORTS
 require('vars')      -- Variables
-require('opts')      -- Optionslua
+require('opts')      -- Options
 require('keys')      -- Keymaps
 require('plug')      -- Plugins
 require('custom')	 -- Plugin Settings
+require('debug')	 -- DAP debugger settings
 
-
--- TODO: 
--- try git fugitive
--- build telescope plugin for docker containers
 
 -- cmds
 vim.cmd("colorscheme tokyodark")

@@ -11,20 +11,17 @@ return require('packer').startup(function()
     use 'rstacruz/vim-closer'
 	use 'kyazdani42/nvim-web-devicons'
 	
-
 	-- LSP
 	use 'neovim/nvim-lspconfig'
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
 	
     -- Theming 
-    --use {'dracula/vim', as = 'dracula'}
 	use {'Mofiqul/dracula.nvim', as = 'dracula-nvim'}
     use {'navarasu/onedark.nvim', as = 'one-dark'}
 	use {'tiagovla/tokyodark.nvim'}
-    -- use {'olimorris/onedarkpro.nvim', as = 'one-dark-pro'}
   
-    -- Status line settings
+    -- Status line 
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -52,6 +49,12 @@ return require('packer').startup(function()
 		requires = { 'nvim-telescope/telescope.nvim' }
 	}	
 
+	-- Debugging --
+	use { 'mfussenegger/nvim-dap' }
+	use { 'mfussenegger/nvim-dap-python' }
+	use { 'rcarriga/nvim-dap-ui' }
+	use { 'theHamsta/nvim-dap-virtual-text' }
+
 	-- File Explorer tree
 	use {
 		'kyazdani42/nvim-tree.lua',
@@ -61,6 +64,9 @@ return require('packer').startup(function()
     	tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	}
 
-
 	-- Misc
+    use {
+      'nvim-orgmode/orgmode',
+      requires = { 'nvim-treesitter/nvim-treesitter', opt = true }
+    }
 end)
