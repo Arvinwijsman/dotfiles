@@ -32,11 +32,11 @@ exec --no-startup-id dex --autostart --environment i3
 # they are included here as an example. Modify as you see fit.
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -58,6 +58,9 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -location 0
 bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons -location 0
 bindsym $mod+Shift+Tab exec --no-startup-id rofi -show windowcd -show-icons -location 0
 bindsym Pause exec --no-startup-id rofi -show power-menu -modi power-menu:rofi-power-menu
+bindsym Print exec --no-startup-id rofi -show docker -modi "docker:/home/arvin/.config/rofi/docker-attach.sh"
+# Combi mode rofi
+# rofi -show combi -modi combi -combi-modi "attach:/home/arvin/.config/rofi/docker-attach.sh,stopped:/home/arvin/.config/rofi/docker-stopped.sh"
 
 #### Brightness adjustment xrandr
 bindcode Mod1+112 exec /home/arvin/.config/i3/bright.sh + && $refresh_i3status
@@ -149,6 +152,12 @@ workspace 1 output DisplayPort-2
 workspace 2 output DisplayPort-2
 workspace 3 output DisplayPort-2
 workspace 4 output DisplayPort-2
+workspace 5 output DisplayPort-2
+workspace 6 output DisplayPort-2
+workspace 7 output HDMI-A-0
+workspace 8 output HDMI-A-0
+workspace 9 output HDMI-A-0
+workspace 10 output HDMI-A-0
 
 ### Panel settings
 title_align center
@@ -158,7 +167,7 @@ smart_borders on
 # smart_gaps on
 
 # App bindings
-assign [class="Slack"] 4
+assign [class="Slack"] 5
 #assign [class="Emacs"] 3 $ws3
 #assign [class="Visual Studio Code"] 3 $ws3
 
