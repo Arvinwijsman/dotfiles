@@ -30,7 +30,7 @@ return require('packer').startup(function()
 	-- Tree shitter  
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    -- Furry Finders  
+    -- Telescope Furry Finders  
     use {
 		'nvim-telescope/telescope.nvim',
   		requires = { {'nvim-lua/plenary.nvim'} }
@@ -52,7 +52,7 @@ return require('packer').startup(function()
 	-- Debugging --
 	use { 'mfussenegger/nvim-dap' }
 	use { 'mfussenegger/nvim-dap-python' }
-	use { 'rcarriga/nvim-dap-ui' }
+	use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 	use { 'theHamsta/nvim-dap-virtual-text' }
 
 	-- File Explorer tree

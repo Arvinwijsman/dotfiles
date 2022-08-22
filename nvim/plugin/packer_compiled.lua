@@ -74,14 +74,9 @@ _G.packer_plugins = {
     path = "/home/arvin/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
-  dracula = {
+  ["dracula-nvim"] = {
     loaded = true,
-    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/dracula",
-    url = "https://github.com/dracula/vim"
-  },
-  ["dracula.nvim"] = {
-    loaded = true,
-    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/dracula.nvim",
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/dracula-nvim",
     url = "https://github.com/Mofiqul/dracula.nvim"
   },
   ["lualine.nvim"] = {
@@ -93,6 +88,26 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/arvin/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-dap-python"] = {
+    loaded = true,
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/nvim-dap-python",
+    url = "https://github.com/mfussenegger/nvim-dap-python"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
+    url = "https://github.com/rcarriga/nvim-dap-ui"
+  },
+  ["nvim-dap-virtual-text"] = {
+    loaded = true,
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text",
+    url = "https://github.com/theHamsta/nvim-dap-virtual-text"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -119,10 +134,10 @@ _G.packer_plugins = {
     path = "/home/arvin/.local/share/nvim/site/pack/packer/start/one-dark",
     url = "https://github.com/navarasu/onedark.nvim"
   },
-  ["one-dark-pro"] = {
+  orgmode = {
     loaded = true,
-    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/one-dark-pro",
-    url = "https://github.com/olimorris/onedarkpro.nvim"
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/orgmode",
+    url = "https://github.com/nvim-orgmode/orgmode"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -158,6 +173,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/arvin/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["tokyodark.nvim"] = {
+    loaded = true,
+    path = "/home/arvin/.local/share/nvim/site/pack/packer/start/tokyodark.nvim",
+    url = "https://github.com/tiagovla/tokyodark.nvim"
   },
   ["vim-closer"] = {
     loaded = true,

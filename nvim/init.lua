@@ -10,12 +10,13 @@ vim.g.mapleader = ' '
 vim.g.localleader = "\\"
 
 -- IMPORTS
-require('vars')      -- Variables
-require('opts')      -- Options
-require('keys')      -- Keymaps
-require('plug')      -- Plugins
-require('custom')	 -- Plugin Settings
-require('debug')	 -- DAP debugger settings
+require('vars')			-- Variables
+require('opts')      	-- Options
+require('plug')      	-- Plugins
+require('custom')		-- Plugin Settings
+require('dap-settings')	-- DAP debugger settings
+require('dap-docker')	-- DAP custom docker connect
+require('keys')			-- Keymaps
 
 
 -- cmds

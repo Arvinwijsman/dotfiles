@@ -117,6 +117,7 @@ end
 
 -- Debugger --
 vim.keymap.set('n', '<space>dt', ":lua require'dap'.toggle_breakpoint()<CR>")
+vim.keymap.set('n', '<space>dc', ":lua require'dap.breakpoints'.clear()<CR>")
 
 vim.keymap.set('n', '<space>db', ":lua require'dap'.continue()<CR>") 
 vim.keymap.set('n', '<space>dq', ":lua require'dap'.terminate()<CR>") 
@@ -131,7 +132,8 @@ vim.keymap.set('n', '<F9>', ":lua require'dap'.step_into()<CR>")
 vim.keymap.set('n', '<F7>', ":lua require'dap'.step_out()<CR>")
 
 -- misc
-vim.keymap.set('n', '<space>dR', ":lua require'dap'.repl.open()<CR>") -- REPL
+vim.keymap.set('n', '<space>dr', ":lua require'dap'.repl.open()<CR>") -- REPL
+vim.keymap.set('n', '<space>dR', ":lua require'dap'.repl.close()<CR>") -- REPL
 vim.keymap.set('n', '<space>du', ":lua require'dapui'.toggle()<CR>") -- toggle UI
 
 

@@ -3,7 +3,16 @@
 
 -- Tree shitter
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = { "python", "lua", "json", "dockerfile" },
+	ensure_installed = { 
+		"python", 
+		"php", 
+		"lua", 
+		"json", 
+		"dockerfile", 
+		"markdown", 
+		"typescript", 
+		"yaml"
+	},
 
     highlight = { -- enable highlighting for all file types
       enable = true, -- you can also use a table with list of langs here (e.g. { "python", "javascript" })
@@ -33,11 +42,6 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- Lualine
-local function arvin()
-  status = require("nvim-treesitter").statusline(90)
-  return status
-end
-
 require('lualine').setup {
   options = {
     icons_enabled = true,
