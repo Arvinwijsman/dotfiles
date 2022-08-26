@@ -1,29 +1,8 @@
--- Custom DAP configurations
---
-require('dap-python').setup('~/venv/debugpy/bin/python')
+local dap = require("dap")
+local dapui = require("dapui")
+local virtualtext = require("nvim-dap-virtual-text")
 
-local pythonAttachConfig = {
-	type = "python";
-	request = "attach";
-	connect = {
-		port = 5679;
-		host = "localhost";
-	};
-	mode = "remote";
-	name = "PZH Attach Docker DAP";
-	-- vim.fn.getcwd()
-	cwd = "/home/arvin/Documents/pzh/Omgevingsbeleid-API";
-	pathMappings = {
-		{
-			localRoot = "/home/arvin/Documents/pzh/Omgevingsbeleid-API";
-			remoteRoot = "/code"; -- Wherever your Python code lives in the container.
-		};
-	};
-}
-
-table.insert(require('dap').configurations.python, pythonAttachConfig)
-
-require("dapui").setup({
+dapui.setup({
 	icons = { expanded = "▾", collapsed = "▸" },
 	mappings = {
 		expand = { "<CR>", "<2-LeftMouse>" },
@@ -68,7 +47,19 @@ require("dapui").setup({
 	}
 })
 
-require("nvim-dap-virtual-text").setup {
+-- Auto open/close debug UI
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open(1)
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+end
+
+
+virtualtext.setup({
 	enabled = true,                        -- enable this plugin (the default)
 	enabled_commands = true,               -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
 	highlight_changed_variables = true,    -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
@@ -83,4 +74,11 @@ require("nvim-dap-virtual-text").setup {
 	all_frames = false,                    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
 	virt_lines = false,                    -- show virtual lines instead of virtual text (will flicker!)
 	virt_text_win_col = nil                -- position the virtual text at a fixed window column (starting from the first text column) ,
-}
+})
+
+-- Language configs
+require("awiseguy.debugging.python")
+-- require("awiseguy.debugging.docker")
+
+-- Bindings
+require("awiseguy.keys").debugger()
