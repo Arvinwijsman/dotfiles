@@ -12,10 +12,10 @@ local pythonAttachConfig = {
 	mode = "remote";
 	name = "PZH Attach Docker DAP";
 	-- vim.fn.getcwd()
-	cwd = "/home/arvin/Documents/pzh/Omgevingsbeleid-API";
+	cwd = "/Users/awiseguy/code/Omgevingsbeleid-API";
 	pathMappings = {
 		{
-			localRoot = "/home/arvin/Documents/pzh/Omgevingsbeleid-API";
+			localRoot = "/Users/awiseguy/code/Omgevingsbeleid-API";
 			remoteRoot = "/code"; -- Wherever your Python code lives in the container.
 		};
 	};
