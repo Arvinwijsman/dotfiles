@@ -57,6 +57,9 @@ return require('packer').startup(function()
     	tag = 'nightly' -- optional, updated every week. (see issue #1193)
 	}
 
+    -- Terminals
+    use { "akinsho/toggleterm.nvim", tag = '*' }
+
 	-- Misc
 	use { "preservim/tagbar" }
 	use { 'tpope/vim-commentary' }

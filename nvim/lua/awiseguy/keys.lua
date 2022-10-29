@@ -1,4 +1,3 @@
---[[ keys.lua ]]
 local keys = {}
 local opts = { noremap = true, silent = true }
 local set = vim.keymap.set
@@ -82,9 +81,9 @@ function keys.on_lsp_attach(client, bufnr)
 end
 
 function keys.debugger()
-    local dap = require("dap");
-    local dapui = require("dapui");
-    local dapbp = require("dap.breakpoints");
+	local dap = require("dap");
+	local dapui = require("dapui");
+	local dapbp = require("dap.breakpoints")
 
     set('n', '<space>dt', dap.toggle_breakpoint)
     set('n', '<space>dT', dap.set_breakpoint)

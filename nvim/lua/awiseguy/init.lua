@@ -14,6 +14,7 @@ require("awiseguy.keys").general()
 require("awiseguy.telescope")
 require("awiseguy.lsp")
 require("awiseguy.plugins.settings")
+require("awiseguy.terminal")
 
 -- Debuggers
 require("awiseguy.debugging")
