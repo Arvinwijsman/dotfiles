@@ -2,7 +2,7 @@
 local lspconfig = require("lspconfig")
 local cmp = require("cmp")
 local keys = require("awiseguy.keys")
-local servers = { 'pyright', 'intelephense' }
+local servers = { "pyright", "sumneko_lua" }
 
 for _, lsp in pairs(servers) do
   require("lspconfig")[lsp].setup({
@@ -12,6 +12,17 @@ for _, lsp in pairs(servers) do
     }
   })
 end
+
+local bin_name = 'npx'
+local cmd = { bin_name, 'intelephense' ,'--stdio' }
+
+require("lspconfig")["intelephense"].setup({
+    on_attach = keys.on_lsp_attach,
+    cmd = cmd,
+    flags = {
+        debounce_text_changes = 150,
+    },
+})
 
 -- Autocomplete nvim-cmp
 cmp.setup {

@@ -36,15 +36,7 @@ return require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
   		requires = { {'nvim-lua/plenary.nvim'} }
     }
-	use {
-		'nvim-telescope/telescope-file-browser.nvim',
-		requires = { 'nvim-telescope/telescope.nvim' }
-	}
 	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-	use {
-		'cljoly/telescope-repo.nvim',
-		requires = { 'nvim-telescope/telescope.nvim' }
-	}
 	use {
 		"ahmedkhalf/project.nvim",
 		requires = { 'nvim-telescope/telescope.nvim' }
@@ -66,10 +58,20 @@ return require('packer').startup(function()
 	}
 
 	-- Misc
-    use {
-      'nvim-orgmode/orgmode',
-      requires = { 'nvim-treesitter/nvim-treesitter', opt = true }
-    }
+	use { "preservim/tagbar" }
+	use { 'tpope/vim-commentary' }
+	use { 'tpope/vim-surround' }
+    -- use { 'tpope/vim-dispatch' }
+    use { 'mhartington/formatter.nvim' }
+
+    -- Python
+    use { 'vim-scripts/indentpython.vim' }
+
+
+    --use {
+    --  'nvim-orgmode/orgmode',
+    --  requires = { 'nvim-treesitter/nvim-treesitter', opt = true }
+    --}
 end)
 
 

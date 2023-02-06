@@ -1,0 +1,12 @@
+session_name: MAIN
+windows:
+- focus: 'true'
+  layout: cc1f,204x63,0,0[204x34,0,0,0,204x28,0,35{101x28,0,35,1,102x28,102,35,2}]
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: Python
+  - zsh
+  - zsh
+  start_directory: /Users/arvinwijsman
+  window_name: SHELL

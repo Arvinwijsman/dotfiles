@@ -1,0 +1,29 @@
+session_name: PZH
+windows:
+- layout: 76d3,186x58,0,0[186x49,0,0{93x49,0,0,0,92x49,94,0,4},186x8,0,50,3]
+  shell_command_before:
+    - '[ -f .venv/bin/activate ] && source .venv/bin/activate && reset'
+    - dcup -d api mssql
+  options: {}
+  panes:
+  - dcl -f api
+  - focus: 'true'
+    shell_command: dce api bash
+  - dce api supervisorctl
+  start_directory: /Users/arvinwijsman/Documents/Omgevingsbeleid-API
+  window_name: SERVER
+- focus: 'true'
+  layout: d182,186x58,0,0,5
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvim
+  start_directory: /Users/arvinwijsman/Documents/Omgevingsbeleid-API
+  window_name: IDE
+- layout: d183,186x58,0,0,6
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: lazygit
+  start_directory: /Users/arvinwijsman/Documents/Omgevingsbeleid-API
+  window_name: GIT

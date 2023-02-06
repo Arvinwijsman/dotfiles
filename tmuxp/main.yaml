@@ -1,0 +1,11 @@
+session_name: MAIN
+windows:
+- focus: 'true'
+  layout: 2cfb,163x52,0,0{80x52,0,0,0,82x52,81,0,2}
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: la
+  - pwd
+  start_directory: /Users/arvinwijsman
+  window_name: SHELL

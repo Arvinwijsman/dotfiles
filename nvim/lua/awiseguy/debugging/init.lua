@@ -1,64 +1,81 @@
+local home = os.getenv('HOME')
 local dap = require("dap")
-local dapui = require("dapui")
+-- local dapui = require("dapui")
 local virtualtext = require("nvim-dap-virtual-text")
 
-dapui.setup({
-	icons = { expanded = "▾", collapsed = "▸" },
-	mappings = {
-		expand = { "<CR>", "<2-LeftMouse>" },
-		open = "o",
-		remove = "d",
-		edit = "e",
-		repl = "r",
-		toggle = "t",
-	},
-	expand_lines = vim.fn.has("nvim-0.7"),
-	layouts = {
+
+-- Language adapters
+require('dap-python').setup(home .. '/.venv/bin/python')
+
+-- dap.adapters.python = {
+--   type = 'executable';
+--   command = home .. '/.venv/bin/python';
+--   args = { '-m', 'debugpy.adapter' };
+-- }
+
+dap.adapters.php = {
+  type = 'executable',
+  command = 'node',
+  args = { '/Users/arvinwijsman/Downloads/vscode-php-debug/out/phpDebug.js' }
+}
+
+
+-- Launch configs
+local attachDockerPZH = {
+	type = "python";
+	request = "attach";
+	connect = {
+		port = 5679;
+		host = "localhost";
+	};
+	mode = "remote";
+	name = "PZH Attach Docker";
+	cwd = home .. "/Documents/Omgevingsbeleid-API";
+	pathMappings = {
 		{
-			elements = {
-				{ id = "scopes", size = 0.25 },
-				"breakpoints",
-				"stacks",
-				"watches",
-			},
-			size = 50, -- 40 columns
-			position = "left",
-		},
-		{
-			elements = {
-				"repl",
-				"console",
-			},
-			size = 0.25, -- 25% of total lines
-			position = "bottom",
-		},
-	},
-	floating = {
-		max_height = nil, -- These can be integers or a float between 0 and 1.
-		max_width = nil, -- Floats will be treated as percentage of your screen.
-		border = "single", -- Border style. Can be "single", "double" or "rounded"
-		mappings = {
-			close = { "q", "<Esc>" },
-		},
-	},
-	windows = { indent = 1 },
-	render = {
-		max_type_length = nil, -- Can be integer or nil.
-	}
-})
+			localRoot = home .. "/Documents/Omgevingsbeleid-API";
+			remoteRoot = "/code"; -- Container mount
+		};
+	};
+}
 
--- Auto open/close debug UI
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open(1)
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
+local launchPyFile = {
+    type = 'python'; -- `dap.adapters.python`
+    request = 'launch';
+    name = "Python Launch file";
+    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+    program = "${file}"; 
+    pythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return '/usr/bin/python'
+      end
+    end;
+}
+
+table.insert(dap.configurations.python, attachDockerPZH)
+table.insert(dap.configurations.python, launchPyFile)
+
+-- dap.configurations.python = {
+--     launchPyFile, 
+--     attachDockerPZH
+-- }
 
 
+dap.configurations.php = {
+  {
+    type = 'php',
+    request = 'launch',
+    name = 'Launch php XDEBUG',
+    port = 9003
+  }
+}
+
+-- Addons
 virtualtext.setup({
 	enabled = true,                        -- enable this plugin (the default)
 	enabled_commands = true,               -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
@@ -76,9 +93,59 @@ virtualtext.setup({
 	virt_text_win_col = nil                -- position the virtual text at a fixed window column (starting from the first text column) ,
 })
 
--- Language configs
-require("awiseguy.debugging.python")
--- require("awiseguy.debugging.docker")
+
+-- dapui.setup({
+-- 	icons = { expanded = "▾", collapsed = "▸" },
+-- 	mappings = {
+-- 		expand = { "<CR>", "<2-LeftMouse>" },
+-- 		open = "o",
+-- 		remove = "d",
+-- 		edit = "e",
+-- 		repl = "r",
+-- 		toggle = "t",
+-- 	},
+-- 	expand_lines = vim.fn.has("nvim-0.7"),
+-- 	layouts = {
+-- 		{
+-- 			elements = {
+-- 				"repl",
+-- 			},
+-- 			size = 60, -- columns
+-- 			position = "right",
+-- 		},
+-- 		{
+-- 			elements = {
+-- 				{ id = "scopes", size = 0.25 },
+-- 				"breakpoints",
+-- 			},
+-- 			size = 0.10, -- % of total lines
+-- 			position = "bottom",
+-- 		},
+-- 	},
+-- 	floating = {
+-- 		max_height = nil, -- These can be integers or a float between 0 and 1.
+-- 		max_width = nil, -- Floats will be treated as percentage of your screen.
+-- 		border = "single", -- Border style. Can be "single", "double" or "rounded"
+-- 		mappings = {
+-- 			close = { "q", "<Esc>" },
+-- 		},
+-- 	},
+-- 	windows = { indent = 1 },
+-- 	render = {
+-- 		max_type_length = nil, -- Can be integer or nil.
+-- 	}
+-- })
+
+-- -- Auto open/close debug UI
+-- dap.listeners.after.event_initialized["dapui_config"] = function()
+--     dapui.open(1)
+-- end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--     dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--     dapui.close()
+-- end
 
 -- Bindings
 require("awiseguy.keys").debugger()
