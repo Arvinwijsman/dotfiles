@@ -59,6 +59,8 @@ bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons -location 0
 bindsym $mod+Shift+Tab exec --no-startup-id rofi -show windowcd -show-icons -location 0
 bindsym Pause exec --no-startup-id rofi -show power-menu -modi power-menu:rofi-power-menu
 #bindsym Print exec --no-startup-id rofi -show docker -modi "docker:/home/arvin/.config/rofi/docker-attach.sh"
+# bindsym $mod+Shift+p exec /home/arvin/.config/rofi/rofi_sgpt.sh
+# bindsym XF86Launch1 exec --no-startup-id bluetoothctl connect E8:85:4B:1F:65:2B
 
 # Combi mode rofi
 # rofi -show combi -modi combi -combi-modi "attach:/home/arvin/.config/rofi/docker-attach.sh,stopped:/home/arvin/.config/rofi/docker-stopped.sh"
@@ -153,35 +155,44 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 ### Monitor mapping
-workspace 1 output DisplayPort-2 
-workspace 2 output DisplayPort-2
-workspace 3 output DisplayPort-2
-workspace 4 output DisplayPort-2
-workspace 5 output DisplayPort-2
-workspace 6 output DisplayPort-2
-workspace 7 output HDMI-A-0
-workspace 8 output HDMI-A-0
-workspace 9 output HDMI-A-0
-workspace 10 output HDMI-A-0
+# workspace 1 output DisplayPort-2 
+# workspace 2 output DisplayPort-2
+# workspace 3 output DisplayPort-2
+# workspace 4 output DisplayPort-2
+# workspace 5 output DisplayPort-2
+# workspace 6 output DisplayPort-2
+# workspace 7 output HDMI-A-0
+# workspace 8 output HDMI-A-0
+# workspace 9 output HDMI-A-0
+# workspace 10 output HDMI-A-0
 
 ### Panel settings
 title_align center
 default_border pixel 1
-gaps inner 50
+gaps inner 20
 smart_borders on
 # smart_gaps on
 
+for_window [class="code-oss"] border pixel 0
+for_window [class="code-oss"] pixel 1
+for_window [class="Slack"] border pixel 0
+for_window [class="Slack"] pixel 1
+
 # App bindings
 assign [class="Slack"] 4
+assign [class="Blender"] 5
 
 # Floaters
 for_window [class="Blueman-manager" instance="blueman-manager"] floating enable
 for_window [class="gnome-calculator" instance="gnome-calculator"] floating enable
 for_window [window_role="About"] floating enable
 for_window [class="Org.gnome.Nautilus" instance="org.gnome.Nautilus"] floating enable
+for_window [class="Blender" instance="Blender"] floating enable
 
-floating_minimum_size 500 x 500
-floating_maximum_size 2500 x 1800
+for_window [floating] resize set 1600 1200
+for_window [floating] move position center
+floating_minimum_size 200 x 200
+floating_maximum_size 2500 x 1440
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -230,10 +241,10 @@ exec_always --no-startup-id dunst
 exec_always --no-startup-id picom --vsync &
 
 # Vsync
-exec_always --no-startup-id xrandr --output DisplayPort-2 --set TearFree on
+exec_always --no-startup-id xrandr --output DP-3 --set TearFree on
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-scale /home/arvin/Pictures/wallpapers/solid-black
+exec_always --no-startup-id feh --bg-scale /home/arvin/Pictures/wallpapers/moon
 
 # USB mounts
 #exec_always --no-startup-id udiskie --tray &
@@ -244,11 +255,23 @@ exec_always --no-startup-id imwheel
 # Bar
 #exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
 
+# bar {
+#     font pango:DejaVu Sans Mono
+#     status_command i3status
+#     tray_output primary
+#     tray_padding 5
+#     workspace_buttons yes
+#     workspace_min_width 25
+# }
+
 bar {
-    font pango:DejaVu Sans Mono
-    status_command i3status
-    tray_output primary
+    font pango:Inconsolata 14
+    position bottom
+    tray_output none
     tray_padding 5
-    workspace_buttons yes
     workspace_min_width 25
+    status_command bumblebee-status -m cpu memory disk:root \
+        date time \
+        -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d" \
+        -t dracula-powerline
 }

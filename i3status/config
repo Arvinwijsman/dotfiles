@@ -11,12 +11,12 @@ general {
     interval = 3
 }
 
-order += "load"
+order += "memory"
+# order += "gpuload"
 order += "ethernet _first_"
 order += "disk /"
-order += "memory"
-order += "tztime local"
 order += "volume master"
+order += "tztime local"
 
 ethernet _first_ {
     format_up = " E: %ip "
@@ -24,7 +24,7 @@ ethernet _first_ {
 }
 
 disk "/" {
-    format = " D: %avail "
+    format = "  %avail "
 }
 
 load {
@@ -32,7 +32,7 @@ load {
 }
 
 memory {
-    format = " M: %used | %available "
+    format = " %used "
     threshold_degraded = "1G"
     format_degraded = "MEMORY < %available"
 }
@@ -41,11 +41,16 @@ tztime local {
     format = " %H:%M:%S  %d-%m "
 }
 
-
 volume master {
-   format = " ♪: %volume "
-   format_muted = " ♪: muted (%volume) "
+   format = " ♪ %volume "
+   format_muted = " ♪ muted (%volume) "
    device = "default"
    mixer = "Master"
    mixer_idx = 0
 }
+
+# gpuload {
+#         command = "/opt/rocm/bin/rocm-smi | awk 'NR==6{print $10}'"
+#         interval = 10
+#         format = "GPU: %s%%"
+# }
