@@ -60,16 +60,16 @@ return require('packer').startup(function()
     -- Terminals
     use { "akinsho/toggleterm.nvim", tag = '*' }
 
+    -- Python
+    use { 'vim-scripts/indentpython.vim' }
+
 	-- Misc
 	use { "preservim/tagbar" }
 	use { 'tpope/vim-commentary' }
 	use { 'tpope/vim-surround' }
     -- use { 'tpope/vim-dispatch' }
     use { 'mhartington/formatter.nvim' }
-
-    -- Python
-    use { 'vim-scripts/indentpython.vim' }
-
+    use { 'christoomey/vim-tmux-navigator' }
 
     --use {
     --  'nvim-orgmode/orgmode',
