@@ -52,6 +52,7 @@ function keys.lsp_general()
     set('n', '<space>e', vim.diagnostic.open_float, opts)
     -- set('n', '[d', vim.diagnostic.goto_prev, opts)
     -- set('n', ']d', vim.diagnostic.goto_next, opts)
+    set('n', '<space>c', ":Centerpad 80<CR>", bufopts)
 end
 
 -- Keymaps on every LSP attach

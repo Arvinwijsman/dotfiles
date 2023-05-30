@@ -20,3 +20,4 @@ require("awiseguy.debugging")
 
 -- cmds
 vim.cmd("colorscheme tokyodark")
+-- vim.cmd("colorscheme delek")
