@@ -265,13 +265,11 @@ exec_always --no-startup-id imwheel
 # }
 
 bar {
-    font pango:Inconsolata 14
+    font pango:Inconsolata 12
     position bottom
     tray_output none
     tray_padding 5
-    workspace_min_width 25
-    status_command bumblebee-status -m cpu memory disk:root \
-        date time \
-        -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d" \
-        -t dracula-powerline
+    workspace_min_width 30
+    status_command bumblebee-status
 }
+

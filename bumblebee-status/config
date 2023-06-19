@@ -1,0 +1,18 @@
+[core]
+modules=cpu2,memory,disk:root,date,time,pulseout
+theme=dracula-powerline
+path=/
+
+[module-parameters]
+cpu2.layout=cpu2.cpuload cpu2.temp cpu2.fanspeed
+cpu2.temp_pattern=temp2_input 
+cpu2.temp_pattern_index=0
+cpu2.fan_pattern=fan1_input
+time.format=%H:%M 
+date.format=%d %b  
+date.left-click="firefox --new-window https://calendar.google.com"
+memory.format={used}
+memory.interval=30s
+disk.format={left}
+disk.left-click="nautilus"
+pulseout.right-click="pavucontrol"
